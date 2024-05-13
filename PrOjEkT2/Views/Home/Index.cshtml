@@ -1,0 +1,81 @@
+﻿@using PrOjEkT2.Models
+@model List<Misa>
+
+@{
+    ViewBag.Title = "Popis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Popis Misa</h2>
+<br />
+<br />
+<div class="text-center">
+    @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+    {
+        @Html.ActionLink("Dodavanje nove Mise", "Azuriraj", null, new { @class = "btn btn-primary mb-3" })
+    }
+</div>
+<br />
+<br />
+
+    @using (Html.BeginForm("Popis", "Svecenik", FormMethod.Get, new { @class = "mb-3" }))
+    {
+        <div class="input-group">
+            <input type="text" name="naziv" class="form-control" placeholder="Naziv" />
+            <button type="submit" class="btn btn-outline-primary">Trazi</button>
+        </div>
+    }
+
+<br />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+                {
+                    <th scope="col">Id</th>
+                }
+                <th scope="col">Ime</th>
+                <th scope="col">Vrijeme Mise</th>
+                <th scope="col">Svecenik</th>
+                <th scope="col">Crkva</th>
+
+                @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+                {
+                    <th scope="col">Azuriranje</th>
+                    <th scope="col">Brisanje</th>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <th scope="col">Mail</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var misa in Model)
+            {
+                <tr>
+                    @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+                    {
+                        <td>@misa.Id</td>
+                    }
+                    <td>@misa.Ime</td>
+                    <td>@misa.DatumVrijemeMise</td>
+                    <td>@misa.Svecenik</td>
+                    <td>@misa.Crkva</td>
+
+                    @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+                    {
+                        <td>@Html.ActionLink("Azuriraj", "Azuriraj", new { id = misa.Id }, new { @class = "btn btn-sm btn-primary me-1" })</td>
+                        <td>@Html.ActionLink("Izbrisi", "Brisi", new { id = misa.Id }, new { @class = "btn btn-sm btn-danger" })</td>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <td>@Html.ActionLink("Posalji Podsjetnik", "Posalji", "Home", new { email = (User as PrOjEkT2.Misc.LogiraniKorisnik).KorisnickoIme, id = misa.Id }, new { @class = "btn btn-sm btn-secondary" })</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

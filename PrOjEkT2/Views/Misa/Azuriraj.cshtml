@@ -1,0 +1,62 @@
+﻿@using PrOjEkT2.Models
+@model Misa
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.Novi)
+{
+    <h2>Dodavanje nove Mise</h2>
+}
+else
+{
+    <h2>Azuriranje podataka o Misi</h2>
+    <h3>@Model.Ime</h3>
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "Ispravite Podatke!");
+<table>
+    @if (!ViewBag.Novi)
+    {
+        <tr>
+            <td>@Html.HiddenFor(model => model.Id) </td>
+            <td>@Html.HiddenFor(model => model.Id, new { disabled = true }) </td>
+        </tr>
+    }
+    <tr>
+        <td>@Html.LabelFor(model => model.Ime) </td>
+        <td>
+            @Html.TextBoxFor(model => model.Ime)
+            @Html.ValidationMessageFor(model => model.Ime)
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.DatumVrijemeMise) </td>
+        <td>
+            @Html.TextBoxFor(model => model.DatumVrijemeMise)
+            @Html.ValidationMessageFor(model => model.DatumVrijemeMise)
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.Crkva) </td>
+        <td>
+            @Html.TextBoxFor(model => model.Crkva)
+            @Html.ValidationMessageFor(model => model.Crkva)
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.Svecenik) </td>
+        <td>
+            @Html.TextBoxFor(model => model.Svecenik)
+            @Html.ValidationMessageFor(model => model.Svecenik)
+        </td>
+    </tr>
+</table>
+@Html.ValidationSummary(true, "Spremanje nije uspjelo!");
+<p><input type="submit" value="Spremi" /></p>
+@Html.ActionLink("Povratak bez spremanja", "Popis", "Misa")
+}

@@ -1,0 +1,38 @@
+﻿@model PrOjEkT2.Models.KorisnikPrijava
+@{
+    ViewBag.Title = "Prijava";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">@ViewBag.Title</h2>
+
+    @using (Html.BeginForm("Prijava", "Vjernik", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @autocomplete = "off", @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.KorisnickoIme, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.KorisnickoIme, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.Lozinka, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.Lozinka, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="col-sm-10 offset-md-2">
+                <button type="submit" class="btn btn-success">
+                    Prijava
+                </button>
+            </div>
+        </div>
+    }
+</div>

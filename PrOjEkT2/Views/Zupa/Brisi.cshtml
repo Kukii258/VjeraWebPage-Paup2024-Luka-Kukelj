@@ -1,0 +1,21 @@
+﻿@using PrOjEkT2.Models
+@model Zupa
+@{
+    ViewBag.Title = "Brisi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>@ViewBag.Title</h2>
+
+    <p>Jeste li sigurni da želite izbrisati Zupu - @Model.Ime?</p>
+
+    @using (Html.BeginForm("Brisi", "Zupa"))
+    {
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-danger">Izbrisi</button>
+        <br />
+        <br />
+        @Html.ActionLink("Odustani", "Popis", null, new { @class = "btn btn-secondary" })
+    }
+</div>

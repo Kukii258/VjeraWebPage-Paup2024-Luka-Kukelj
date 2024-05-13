@@ -1,0 +1,20 @@
+﻿@using PrOjEkT2.Models
+@model Misa
+@{
+    ViewBag.Title = "Brisi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+
+<div class="text-center mb-4">Jeste li sigurni da želite izbrisati Misu - @Model.Ime?</div>
+
+@using (Html.BeginForm("Brisi", "Home", FormMethod.Post, new { @class = "text-center" }))
+{
+    @Html.AntiForgeryToken();
+
+    <button type="submit" class="btn btn-danger">Izbrisi</button>
+    <br />
+    <br />
+    @Html.ActionLink("Odustani", "Index", null, new { @class = "btn btn-secondary" })
+}

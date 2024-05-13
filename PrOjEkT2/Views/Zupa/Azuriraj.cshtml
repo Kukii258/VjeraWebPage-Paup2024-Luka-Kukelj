@@ -1,0 +1,66 @@
+﻿@using PrOjEkT2.Models
+@model Zupa
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.Novi)
+{
+    <h2 class="mb-4">Dodavanje nove Zupe</h2>
+}
+else
+{
+    <h2 class="mb-4">Azuriranje podataka o Zupe</h2>
+    <h3>@Model.Ime</h3>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "Ispravite Podatke!")
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                @if (!ViewBag.Novi)
+                {
+                    <div class="mb-3">
+                        @Html.HiddenFor(model => model.Id, htmlAttributes: new { @class = "form-label" })
+                        @Html.HiddenFor(model => model.Id, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                }
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Ime, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Ime, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Ime, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.BrojVjernika, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.BrojVjernika, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.BrojVjernika, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.BrojSvecenika, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.BrojSvecenika, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.BrojSvecenika, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.BrojCrkvi, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.BrojCrkvi, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.BrojCrkvi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.ValidationSummary(true, "Spremanje nije uspjelo!")
+    <div class="mt-3">
+        <input type="submit" value="Spremi" class="btn btn-primary" />
+        @Html.ActionLink("Povratak bez spremanja", "Popis", "Zupa", new { @class = "btn btn-secondary" })
+    </div>
+}

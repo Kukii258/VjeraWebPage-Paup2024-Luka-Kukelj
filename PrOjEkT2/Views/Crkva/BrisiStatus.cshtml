@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "BrisiStatus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">Podaci uspješno izbrisani</h2>
+    <div class="text-center">
+        @Html.ActionLink("Povratak na popis Crkvi", "Popis", null, new { @class = "btn btn-primary mt-3" })
+    </div>
+</div>

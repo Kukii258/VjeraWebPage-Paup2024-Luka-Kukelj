@@ -1,0 +1,65 @@
+﻿@using PrOjEkT2.Models
+@model Crkva
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.Novi)
+{
+    <h2 class="text-center">Dodavanje nove Crkve</h2>
+}
+else
+{
+    <h2 class="text-center">Ažuriranje podataka o Crkvi</h2>
+    <h3 class="text-center">@Model.Ime</h3>
+}
+
+<div class="container mt-5">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "needs-validation", novalidate = "true" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                @if (!ViewBag.Novi)
+                {
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.Id, new { disabled = "true" })
+                }
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Ime, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Ime, new { @class = "form-control", required = "true" })
+                    @Html.ValidationMessageFor(model => model.Ime, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Adresa, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Adresa, new { @class = "form-control", required = "true" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.BrojVjernika, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.BrojVjernika, new { @class = "form-control", type = "number", required = "true" })
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.BrojVjernika)</div>
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Svecenik, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Svecenik, new { @class = "form-control", required = "true" })
+                    @Html.ValidationMessageFor(model => model.Svecenik, "", new { @class = "text-danger" })
+
+
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.zupa, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.zupa, new { @class = "form-control", required = "true" })
+                    @Html.ValidationMessageFor(model => model.zupa, "", new { @class = "text-danger" })
+
+
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            @Html.ValidationSummary(true, "Spremanje nije uspjelo!", new { @class = "alert alert-danger" })
+            <button type="submit" class="btn btn-primary">Spremi</button>
+            @Html.ActionLink("Povratak bez spremanja", "Popis", "Crkva", null, new { @class = "btn btn-secondary ml-2" })
+        </div>
+    }
+</div>

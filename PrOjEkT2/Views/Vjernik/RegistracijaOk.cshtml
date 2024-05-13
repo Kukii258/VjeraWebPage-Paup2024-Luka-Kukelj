@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Registracija korisnika";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>@ViewBag.Title</h2>
+
+    <div class="alert alert-success" role="alert">
+        Uspješno ste se registrirali! Možete se prijaviti u aplikaciju.
+    </div>
+
+    <div class="text-center">
+        @Html.ActionLink("Prijava u aplikaciju", "Prijava", null, new { @class = "btn btn-primary" })
+    </div>
+</div>

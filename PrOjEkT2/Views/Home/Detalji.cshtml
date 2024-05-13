@@ -1,0 +1,31 @@
+﻿@using PrOjEkT2.Models
+@model Vjernik
+@{
+    ViewBag.Title = "Detalji";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Korisnicki podaci Vjernika @Model.PrezimeIme</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Korisnicko Ime</th>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Email</th>
+        <th>Crkva</th>
+        <th>Zupa</th>
+
+    </tr>
+    <tr>
+        <td>@Model.korisnicko_ime</td>
+        <td>@Model.ime</td>
+        <td>@Model.prezime</td>
+        <td>@Model.email</td>
+        <td>@Model.crkva</td>
+        <td>@Model.zupa</td>
+    </tr>
+
+</table>
+
+

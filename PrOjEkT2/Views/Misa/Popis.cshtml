@@ -1,0 +1,84 @@
+﻿@using PrOjEkT2.Models
+@model List<Misa>
+
+
+@{
+    ViewBag.Title = "Popis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Popis Misa</h2>
+<br />
+<br />
+
+
+@if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+{
+
+    @Html.ActionLink("Dodavanje nove Mise", "Azuriraj")
+}
+<br />
+<br />
+
+@using (Html.BeginForm("Popis", "Misa", FormMethod.Get))
+{
+    <p>
+        Naziv: @Html.TextBox("naziv")
+        <input type="submit" value="Trazi" />
+    </p>
+}
+
+<br />
+<br />
+
+
+<table class="table table-bordered">
+    <tr>
+
+        @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+        {
+            <th>Id</th>
+        }
+        <th>Ime</th>
+        <th>Vrijeme Mise</th>
+        <th>Svecenik</th>
+        <th>Crkva</th>
+
+        @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+        {
+            <th>Azuriranje</th>
+            <th>Brisanje</th>
+        }
+        @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+        {
+            <th>Posalji Na Mail</th>
+        }
+        </tr>
+    @foreach (var misa in Model)
+    {
+        <tr>
+
+            @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+            {
+                <td>@misa.Id</td>
+            }
+            <td>@misa.Ime</td>
+            <td>@misa.DatumVrijemeMise</td>
+            <td>@misa.Svecenik</td>
+            <td>@misa.Crkva</td>
+
+            @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+            {
+                <td>@Html.ActionLink("Azuriraj", "Azuriraj", new { id = misa.Id })</td>
+                <td>@Html.ActionLink("Izbrisi", "Brisi", new { id = misa.Id })</td>
+            }
+
+            @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+            {
+                <td>@Html.ActionLink(((User as PrOjEkT2.Misc.LogiraniKorisnik).PrezimeIme), "Posalji", "Misa", new { email = (User as PrOjEkT2.Misc.LogiraniKorisnik).KorisnickoIme }, "")</td>
+            }
+            </tr>
+    }
+</table>
+
+

@@ -1,0 +1,76 @@
+﻿@using PrOjEkT2.Models
+@model List<Svecenik>
+
+@{
+    ViewBag.Title = "Popis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2 class="text-center">Popis Svecenika</h2>
+    <br />
+    <br />
+
+    @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+    {
+        <div class="text-center">
+            <a href="@Url.Action("Azuriraj")" class="btn btn-primary">Dodavanje novog Svecenika</a>
+        </div>
+    }
+    <br />
+    <br />
+
+    @using (Html.BeginForm("Popis", "Svecenik", FormMethod.Get, new { @class = "mb-3" }))
+    {
+        <div class="input-group">
+            <input type="text" name="naziv" class="form-control" placeholder="Naziv" />
+            <button type="submit" class="btn btn-outline-primary">Trazi</button>
+        </div>
+    }
+
+    <br />
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+                {
+                    <th>Id</th>
+                }
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Crkva</th>
+                <th>Zupa</th>
+                @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+                {
+                    <th>Azuriranje</th>
+                    <th>Brisanje</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var svecenik in Model)
+            {
+                <tr>
+                    @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+                    {
+                        <td>@svecenik.Id</td>
+                    }
+                    <td>@svecenik.Ime</td>
+                    <td>@svecenik.Prezime</td>
+                    <td>@svecenik.crkva</td>
+                    <td>@svecenik.zupa</td>
+                    @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
+                    {
+                        <td>
+                            <a href="@Url.Action("Azuriraj", new { id = svecenik.Id })" class="btn btn-primary">Azuriraj</a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Brisi", new { id = svecenik.Id })" class="btn btn-danger">Izbrisi</a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

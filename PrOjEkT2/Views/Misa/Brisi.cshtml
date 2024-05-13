@@ -1,0 +1,21 @@
+﻿@using PrOjEkT2.Models
+@model Misa
+@{
+    ViewBag.Title = "Brisi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+Jeste li sigurni da zelite izbrisati Misu - @Model.Ime?
+
+@using (Html.BeginForm("Brisi", "Misa"))
+{
+    @Html.AntiForgeryToken();
+    <input type="submit" value="Izbrisi" />
+    <br />
+    <br />
+
+    @Html.ActionLink("Odustani", "Popis");
+}
+
