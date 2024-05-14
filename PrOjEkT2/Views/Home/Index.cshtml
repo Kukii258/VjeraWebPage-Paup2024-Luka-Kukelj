@@ -6,13 +6,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="text-center">Popis Misa</h2>
+<h2 class="text-center">Popis misa</h2>
 <br />
 <br />
 <div class="text-center">
     @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
     {
-        @Html.ActionLink("Dodavanje nove Mise", "Azuriraj", null, new { @class = "btn btn-primary mb-3" })
+        @Html.ActionLink("Dodavanje nove mise", "Azuriraj", null, new { @class = "btn btn-primary mb-3" })
     }
 </div>
 <br />
@@ -30,7 +30,7 @@
 
 <div class="table-responsive">
     <table class="table table-bordered table-hover">
-        <thead class="table-dark">
+        <thead class="">
             <tr>
                 @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
                 {
@@ -45,9 +45,6 @@
                 {
                     <th scope="col">Azuriranje</th>
                     <th scope="col">Brisanje</th>
-                }
-                @if (User.Identity.IsAuthenticated)
-                {
                     <th scope="col">Mail</th>
                 }
             </tr>
@@ -69,9 +66,6 @@
                     {
                         <td>@Html.ActionLink("Azuriraj", "Azuriraj", new { id = misa.Id }, new { @class = "btn btn-sm btn-primary me-1" })</td>
                         <td>@Html.ActionLink("Izbrisi", "Brisi", new { id = misa.Id }, new { @class = "btn btn-sm btn-danger" })</td>
-                    }
-                    @if (User.Identity.IsAuthenticated)
-                    {
                         <td>@Html.ActionLink("Posalji Podsjetnik", "Posalji", "Home", new { email = (User as PrOjEkT2.Misc.LogiraniKorisnik).KorisnickoIme, id = misa.Id }, new { @class = "btn btn-sm btn-secondary" })</td>
                     }
                 </tr>

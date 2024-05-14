@@ -6,11 +6,11 @@
 
 @if (ViewBag.Novi)
 {
-    <h2 class="mb-4">Dodavanje Svecenika</h2>
+    <h2 class="mb-4">Dodavanje svecenika</h2>
 }
 else
 {
-    <h2 class="mb-4">Azuriranje podataka o Sveceniku</h2>
+    <h2 class="mb-4">Azuriranje podataka o sveceniku</h2>
     <h3>@Model.Ime</h3>
 }
 
@@ -27,16 +27,16 @@ else
                 }
                 <label class="form-label">@Html.DisplayNameFor(model => model.Ime)</label>
                 @Html.TextBoxFor(model => model.Ime, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Ime, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Ime, "", new { @class = "text-danger", required = "true" })
             </div>
             <div class="mb-3">
                 <label class="form-label">@Html.DisplayNameFor(model => model.Prezime)</label>
                 @Html.TextBoxFor(model => model.Prezime, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Prezime, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Prezime, "", new { @class = "text-danger" , required = "true" })
             </div>
             <div class="mb-3">
-                <label class="form-label">@Html.DisplayNameFor(model => model.crkva)</label>
-                @Html.TextBoxFor(model => model.crkva, new { @class = "form-control" })
+                @Html.LabelFor(model => model.crkva, new { @class = "form-label" })
+                @Html.DropDownListFor(model => model.crkva, new SelectList(ViewBag.Lista), "Odaberi crkvu", new { @class = "form-control", required = "true" })
                 @Html.ValidationMessageFor(model => model.crkva, "", new { @class = "text-danger" })
             </div>
         </div>

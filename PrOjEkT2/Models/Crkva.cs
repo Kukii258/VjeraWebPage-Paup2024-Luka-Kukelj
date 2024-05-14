@@ -7,6 +7,9 @@ using System.Web;
 
 namespace PrOjEkT2.Models
 {
+
+
+
     [Table("crkva")]
 
     public class Crkva
@@ -14,9 +17,11 @@ namespace PrOjEkT2.Models
         [Display(Name = "Id")]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "{0} je obavezno")]
         [Display(Name = "Ime")]
         public string Ime { get; set; }
 
+        [Required(ErrorMessage = "{0} je obavezno")]
         [Display(Name = "Adresa")]
         public string Adresa { get; set; }
 
@@ -32,6 +37,9 @@ namespace PrOjEkT2.Models
         [Display(Name = "Zupa")]
         public string zupa { get; set; }
 
-        public string Svecenik { get; set; }
+
+
     }
+
+
 }

@@ -7,13 +7,13 @@
 }
 
 <div class="container">
-    <h2 class="text-center">Popis Zupa</h2>
+    <h2 class="text-center">Popis zupa</h2>
     <br />
     <br />
     @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
     {
         <div class="text-center">
-            @Html.ActionLink("Dodavanje nove Zupe", "Azuriraj", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Dodavanje nove zupe", "Azuriraj", null, new { @class = "btn btn-primary" })
         </div>
     }
     <br />

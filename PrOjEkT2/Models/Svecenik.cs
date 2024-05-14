@@ -13,9 +13,11 @@ namespace PrOjEkT2.Models
         [Display(Name = "ID Svecenika")]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "{0} je obavezno")]
         [Display(Name = "Ime")]
         public string Ime { get; set; }
 
+        [Required(ErrorMessage = "{0} je obavezno")]
         [Display(Name = "Prezime")]
         public string Prezime { get; set; }
 

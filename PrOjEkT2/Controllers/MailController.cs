@@ -20,20 +20,28 @@ namespace PrOjEkT2.Controllers
         [HttpPost]
         public ActionResult Index(mail model)
         {
-            MailMessage mm = new MailMessage("paup.lukakukelj@gmail.com", model.To);
-            mm.Subject = model.Subject;
-            mm.Body = model.Body;
-            mm.IsBodyHtml = false;
 
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.gmail.com";
-            smtp.Port = 587;
-            smtp.EnableSsl = true;
+            List<Vjernik> listaVjernika = TempData["vjernici"] as List<Vjernik>;
 
-            NetworkCredential nc = new NetworkCredential("paup.lukakukelj@gmail.com", "shhy ggwj ajzr fmwp");
-            smtp.UseDefaultCredentials = true;
-            smtp.Credentials = nc;
-            smtp.Send(mm);
+            foreach(var v in listaVjernika)
+            {
+                MailMessage mm = new MailMessage("paup.lukakukelj@gmail.com", v.email);
+                mm.Subject = model.Subject;
+                mm.Body = model.Body;
+                mm.IsBodyHtml = false;
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+
+                NetworkCredential nc = new NetworkCredential("paup.lukakukelj@gmail.com", "shhy ggwj ajzr fmwp");
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = nc;
+                smtp.Send(mm);
+            }
+
+            
             ViewBag.Message = "Mail Has Been Sent Successfully";
             return RedirectToAction("Index","Home");
         }

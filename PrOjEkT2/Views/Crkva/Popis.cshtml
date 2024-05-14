@@ -5,14 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="text-center">Popis Crkvi</h2>
+<h2 class="text-center">Popis crkvi</h2>
 <br />
 <br />
 
 @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
 {
     <div class="text-center">
-        @Html.ActionLink("Dodavanje nove Crkve", "Azuriraj", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Dodavanje nove crkve", "Azuriraj", null, new { @class = "btn btn-primary" })
     </div>
 }
 <br />
@@ -32,7 +32,7 @@
 
 <div class="container">
     <table class="table table-bordered">
-        <thead class="table-dark">
+        <thead class="">
             <tr>
                 @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
                 {
@@ -41,7 +41,6 @@
                 <th>Ime</th>
                 <th>Adresa</th>
                 <th>Broj Vjernika</th>
-                <th>Svecenik</th>
                 <th>Zupa</th>
                 @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
                 {
@@ -61,7 +60,6 @@
                     <td>@crkva.Ime</td>
                     <td>@crkva.Adresa</td>
                     <td>@crkva.BrojVjernika</td>
-                    <td>@crkva.Svecenik</td>
                     <td>@crkva.zupa</td>
                     @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
                     {

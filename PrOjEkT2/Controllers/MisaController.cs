@@ -42,6 +42,9 @@ namespace PrOjEkT2.Controllers
 
         public ActionResult Azuriraj(int? id)
         {
+
+
+
             Misa misa = null;
             if (!id.HasValue)
             {
@@ -96,7 +99,24 @@ namespace PrOjEkT2.Controllers
 
                     bazaPodataka.PopisMisa.Add(m);
                 }
-       
+
+
+
+                Misa misa = new Misa();
+                foreach (Misa mi in bazaPodataka.PopisMisa)
+                {
+                    if (mi.Ime == m.Ime && mi.Crkva == m.Crkva && mi.DatumVrijemeMise == m.DatumVrijemeMise)
+                    {
+                        ModelState.AddModelError("ime", "Svecenik je vec zapisan za tu crkvu!");
+                        ViewBag.Title = "Svecenik je vec zapisan za tu crkvu!";
+                        ViewBag.Novi = false;
+
+                        return View(m);
+                    }
+                }
+
+
+
                 bazaPodataka.SaveChanges();
 
                 return RedirectToAction("Popis");

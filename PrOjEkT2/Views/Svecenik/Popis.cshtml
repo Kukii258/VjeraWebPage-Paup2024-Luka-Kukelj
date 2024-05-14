@@ -7,14 +7,14 @@
 }
 
 <div class="container">
-    <h2 class="text-center">Popis Svecenika</h2>
+    <h2 class="text-center">Popis svecenika</h2>
     <br />
     <br />
 
     @if (User.Identity.IsAuthenticated && ((User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Administrator) || (User as PrOjEkT2.Misc.LogiraniKorisnik).IsInRole(PrOjEkT2.Misc.OvlastiKorisnik.Moderator)))
     {
         <div class="text-center">
-            <a href="@Url.Action("Azuriraj")" class="btn btn-primary">Dodavanje novog Svecenika</a>
+            <a href="@Url.Action("Azuriraj")" class="btn btn-primary">Dodavanje novog svecenika</a>
         </div>
     }
     <br />

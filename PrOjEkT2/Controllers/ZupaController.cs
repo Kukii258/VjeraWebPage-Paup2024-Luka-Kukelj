@@ -1,4 +1,5 @@
-﻿using PrOjEkT2.Models;
+﻿using Microsoft.Ajax.Utilities;
+using PrOjEkT2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,11 +92,10 @@ namespace PrOjEkT2Controllers
                 {
                     ModelState.AddModelError("ime", "Zupa s tim imenom vec postoji!");
                     ViewBag.Title = "Crkva s tim imenom vec postoji";
-                    ViewBag.Novi = false;
+                    ViewBag.Novi = true;
                     return View(m);
-                }
+                }   
 
-           
                 bazaPodataka.SaveChanges();
 
                 return RedirectToAction("Popis");

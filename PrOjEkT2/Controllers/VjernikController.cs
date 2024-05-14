@@ -97,6 +97,14 @@ namespace PrOjEkT2.Controllers
         [AllowAnonymous]
         public ActionResult Registracija()
         {
+
+            List<string> lista = new List<string>();
+            foreach (Crkva z in bazaPodataka.PopisCrkvi)
+            {
+                lista.Add(z.Ime);
+            }
+            ViewBag.Lista = lista;
+
             return View();
         }
 
@@ -104,6 +112,8 @@ namespace PrOjEkT2.Controllers
         [AllowAnonymous]
         public ActionResult Registracija(Vjernik model)
         {
+
+
 
             bool error = false;
 

@@ -6,11 +6,11 @@
 
 @if (ViewBag.Novi)
 {
-    <h2 class="text-center">Dodavanje nove Mise</h2>
+    <h2 class="text-center">Dodavanje nove mise</h2>
 }
 else
 {
-    <h2 class="text-center">Ažuriranje podataka o Misi</h2>
+    <h2 class="text-center">Ažuriranje podataka o misi</h2>
     <h3 class="text-center">@Model.Ime</h3>
 }
 
@@ -18,37 +18,38 @@ else
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                @if (!ViewBag.Novi)
-                {
-                    @Html.HiddenFor(model => model.Id)
-                    @Html.HiddenFor(model => model.Id, new { disabled = "true" })
-                }
-                <div class="mb-3">
-                    @Html.LabelFor(model => model.Ime, new { @class = "form-label" })
-                    @Html.TextBoxFor(model => model.Ime, new { @class = "form-control", required = "true" })
-                </div>
-                <div class="mb-3">
-                    @Html.LabelFor(model => model.DatumVrijemeMise, new { @class = "form-label" })
-                    @Html.TextBoxFor(model => model.DatumVrijemeMise, new { @class = "form-control", type = "datetime-local", required = "true" })
-                </div>
-                <div class="mb-3">
-                    @Html.LabelFor(model => model.Crkva, new { @class = "form-label" })
-                    @Html.TextBoxFor(model => model.Crkva, new { @class = "form-control", required = "true" })
-                    @Html.ValidationMessageFor(model => model.Crkva, "", new { @class = "text-danger" })
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+            @if (!ViewBag.Novi)
+            {
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.Id, new { disabled = "true" })
+            }
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Ime, new { @class = "form-label" })
+                @Html.TextBoxFor(model => model.Ime, new { @class = "form-control", required = "true" })
+                @Html.ValidationMessageFor(model => model.Ime, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(model => model.DatumVrijemeMise, new { @class = "form-label" })
+                @Html.TextBoxFor(model => model.DatumVrijemeMise, new { @class = "form-control", type = "datetime-local", required = "true" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Svecenik, new { @class = "form-label" })
+                @Html.DropDownListFor(model => model.Svecenik, new SelectList(ViewBag.Lista1), "Odaberi svecenika", new { @class = "form-control", required = "true" })
+                @Html.ValidationMessageFor(model => model.Svecenik, "", new { @class = "text-danger" })
 
 
-                </div>
-                <div class="mb-3">
-                    @Html.LabelFor(model => model.Svecenik, new { @class = "form-label" })
-                    @Html.TextBoxFor(model => model.Svecenik, new { @class = "form-control", required = "true" })
-                    @Html.ValidationMessageFor(model => model.Svecenik, "", new { @class = "text-danger" })
-
-
-                </div>
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Crkva, new { @class = "form-label" })
+                @Html.DropDownListFor(model => model.Crkva, new SelectList(ViewBag.Lista), "Odaberi crkvu", new { @class = "form-control", required = "true" })
+                @Html.ValidationMessageFor(model => model.Crkva, "", new { @class = "text-danger" })
             </div>
         </div>
+    </div>
         <div class="text-center">
             @Html.ValidationSummary(true, "Spremanje nije uspjelo!", new { @class = "alert alert-danger" })
             <button type="submit" class="btn btn-primary">Spremi</button>

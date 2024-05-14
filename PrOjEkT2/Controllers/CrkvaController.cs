@@ -1,6 +1,8 @@
-﻿using Microsoft.Ajax.Utilities;
+﻿using Google.Protobuf.Collections;
+using Microsoft.Ajax.Utilities;
 using PrOjEkT2.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -38,6 +40,23 @@ namespace PrOjEkT2.Controllers
 
         public ActionResult Azuriraj(int? id)
         {
+
+            List<string> lista = new List<string>();
+            foreach (Zupa z in bazaPodataka.PopisZupa)
+            {
+                lista.Add(z.Ime);
+            }
+            ViewBag.Lista = lista;
+
+            List<string> lista1 = new List<string>();
+            foreach (Svecenik z in bazaPodataka.PopisSvecenik)
+            {
+                lista1.Add(z.Ime);
+            }
+            ViewBag.Lista1 = lista1;
+            TempData["lista"] = lista;
+            TempData["lista1"] = lista1;
+
             Crkva crkva = null;
             if (!id.HasValue)
             {
@@ -56,14 +75,33 @@ namespace PrOjEkT2.Controllers
                 ViewBag.Title = "Azuriranje podataka o Crkvi";
                 ViewBag.Novi = false;
                 TempData["brojac"] = "1";
+                TempData["brojac2"] = "1";
             }
             TempData["ZupaIme"] = crkva.zupa;
+            TempData["CrkvaIme"] = crkva.Ime;
             return View(crkva);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Azuriraj(Crkva m)
         {
+            List<string> lista = new List<string>();
+            foreach (Zupa z in bazaPodataka.PopisZupa)
+            {
+                lista.Add(z.Ime);
+            }
+            ViewBag.Lista = lista;
+
+            List<string> lista1 = new List<string>();
+            foreach (Svecenik z in bazaPodataka.PopisSvecenik)
+            {
+                lista1.Add(z.Ime);
+            }
+            ViewBag.Lista1 = lista1;
+            TempData["lista"] = lista;
+            TempData["lista1"] = lista1;
+
+
             string zupaIme = TempData["ZupaIme"] as string;
             if (ModelState.IsValid)
             {
@@ -81,15 +119,17 @@ namespace PrOjEkT2.Controllers
 
 
 
-
+                //ne treba mozda
                 var zupa2 = bazaPodataka.PopisZupa.Any(x => x.Ime == m.zupa);
                 if (!zupa2)
                 {
                     ModelState.AddModelError("zupa", "Zupa s tim imenom ne postoji!");
                     ViewBag.Title = "Azuriranje podataka o Zupi";
-                    ViewBag.Novi = false;
+                    ViewBag.Novi = true;
                     return View(m);
                 }
+
+
                 int brojac;
                 string str = TempData["brojac"] as string;
                 int.TryParse(str, out brojac);
@@ -99,14 +139,20 @@ namespace PrOjEkT2.Controllers
                     if (c.Ime == m.Ime)
                         i++;
                 }
+                string imeZupe = bazaPodataka.PopisCrkvi.FirstOrDefault(x => x.Ime == m.Ime).zupa;
+                if (m.zupa == imeZupe)
+                        i++;
 
-                if (i > brojac)
+                if (i > brojac+1)
                 {
-                    ModelState.AddModelError("ime", "Neispravno Ime Crkve!");
+                    ModelState.AddModelError("ime", "Ime Crkve vec postoji u toj župi!");
                     ViewBag.Title = "Crkva s tim imenom vec postoji";
-                    ViewBag.Novi = false;
+                    ViewBag.Novi = true;
+                    
+                    
                     return View(m);
                 }
+    
 
 
                 Zupa zupa = bazaPodataka.PopisZupa.FirstOrDefault(x => x.Ime == m.zupa);
@@ -117,6 +163,7 @@ namespace PrOjEkT2.Controllers
                     if(zupa1 != null)
                         zupa1.BrojCrkvi -= 1;
                 }
+
                 bazaPodataka.SaveChanges();
 
                 return RedirectToAction("Popis");
